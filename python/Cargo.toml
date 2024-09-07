@@ -1,0 +1,9 @@
+[package]
+name = "python"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.86"
+pyo3 = {version = "0.22.2", features=["auto-initialize"]}
+serde = "1.0.209"

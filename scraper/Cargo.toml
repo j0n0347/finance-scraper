@@ -1,0 +1,9 @@
+[package]
+name = "scraper"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+
+python = {path = "../python"}
+csv_processor = {path = "../csv_processor"}
