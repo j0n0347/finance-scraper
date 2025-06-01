@@ -1,34 +1,11 @@
 use csv_processor::{process_quarter, process_yearly};
-use python::test_run;
-use std::cmp::Ordering;
+use python::run;
 use std::env;
 use std::path::PathBuf;
+use dotenv::dotenv;
+use logic::*;
 
-fn parse_config(args: &[String]) -> (i32, i32) {
-    if args.len() < 3 {
-        panic!("not enough arguments specified")
-    }
-
-    let year = match args[1].parse::<i32>() {
-        Ok(year) => year,
-        Err(_) => panic!("plase enter in a valid year"),
-    };
-
-    if (year < 2001) || (year > 2024) {
-        panic!("please enter in a number between 2001-present")
-    }
-
-    let quarter = match args[2].parse::<i32>() {
-        Ok(quarter) => quarter,
-        Err(_) => panic!("please parse in a valid quarter"),
-    };
-
-    if quarter > 5 || quarter < 1 {
-        panic!("enter in quarters 1 to 4");
-    }
-
-    (year, quarter)
-}
+pub mod logic;
 
 fn main() {
     println!("---------------------------------");
@@ -37,11 +14,22 @@ fn main() {
 
     println!("---------------------------------");
 
+    dotenv().ok();
+
     let args: Vec<String> = env::args().collect();
 
-    let (year, quarter) = parse_config(&args);
+    let (year, quarter) = parse_config(&args).unwrap();
 
-    match test_run((year, quarter)) {
+    let current_dir = std::env::var("CURRENT_DIR").unwrap();
+
+    let path = PathBuf::from(format!("{}/output/AAPL/{}/Q{}/",current_dir, &year, &quarter));
+
+    if is_scraped(path) {
+        println!("year/quart has already been scraped");
+        println!("exiting application!");
+        return;
+    }
+    match run((year, quarter)) {
         Ok(()) => println!("scraping successfull"),
         Err(e) => panic!("Error scraping: {}", e),
     }

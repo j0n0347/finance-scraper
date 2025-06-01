@@ -7,3 +7,5 @@ edition = "2021"
 
 python = {path = "../python"}
 csv_processor = {path = "../csv_processor"}
+anyhow = "1.0.95"
+dotenv = "0.15.0"

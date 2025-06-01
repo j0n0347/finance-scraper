@@ -106,7 +106,7 @@ pub fn process_quarter(csv_file: &PathBuf) -> Result<()> {
 }
 
 pub fn process_yearly(csv_file: &PathBuf) -> Result<()> {
-    let files = collect_entries(csv_file).expect("read_dir call failed");
+    let files = collect_entries(csv_file)?;
     for file in &files {
         let file_str = file.file_name().into_string().unwrap();
         if file_str.contains("_cleaned.csv") {
@@ -192,3 +192,8 @@ pub fn process_yearly(csv_file: &PathBuf) -> Result<()> {
 
     Ok(())
 }
+
+// #[cfg(test)]
+// mod test {
+//     fn 
+// }

@@ -1,10 +1,13 @@
 from classes.aapl import AaplDriver
 from classes.aapl import validate_input
+from classes.nvda import NvdaDriver
 
 
 def scrape(year, quarter):
 
-    instance = AaplDriver(tick = "AAPL")
+    instance = AaplDriver("AAPL")
+    
+    instance2 = NvdaDriver("NVDA")
 
     # is_valid = False
 
@@ -25,24 +28,44 @@ def scrape(year, quarter):
     #         is_valid = True
     #     else:
     #         is_valid = False
-    instance.year_choice = year 
-    instance.quarter = quarter  
     
-    instance.print_attr()
-    instance.create_driver()
+    # instance.year_choice = year 
+    # instance.quarter = quarter  
+    
+    # instance.print_attr()
+    # instance.create_driver()
+    # tables = ['FLOWS','BALANCE','INCOME']
+
+    # for table in tables:
+    #     result = instance.find_page_link(table)
+    
+    #     if result is None:
+    #         instance.find_page_nolink(table)
+    #         instance.find_table() 
+    #         instance.process_table(table)
+    #     else:
+    #         instance.find_table()
+    #         instance.process_table(table)
+    # instance.quit()
+    
+    instance2.year_choice = year 
+    instance2.quarter = quarter  
+    
+    instance2.print_attr()
+    instance2.create_driver()
     tables = ['FLOWS','BALANCE','INCOME']
 
     for table in tables:
         result = instance.find_page_link(table)
     
         if result is None:
-            instance.find_page_nolink(table)
-            instance.find_table() 
-            instance.process_table(table)
-        else:
-            instance.find_table()
-            instance.process_table(table)
-    instance.quit()
+            instance2.find_page_nolink(table)
+            # instance.find_table() 
+            # instance.process_table(table)
+        # else:
+        #     instance.find_table()
+        #     instance.process_table(table)
+    instance2.quit()
 
 if __name__ == '__main__':
     scrape(2020,'Q4')
