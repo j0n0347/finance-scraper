@@ -1,5 +1,4 @@
 from classes.aapl import AaplDriver
-from classes.aapl import validate_input
 from classes.nvda import NvdaDriver
 
 
@@ -9,63 +8,63 @@ def scrape(year, quarter):
     
     instance2 = NvdaDriver("NVDA")
 
-    # is_valid = False
-
+    is_valid = False
+# menu selection if running directly from python module
     # while (not is_valid):
     #     print("Enter the year to seach between 2001-present:")
     #     instance.year_choice = input()
-    #
+    
     #     print("Enter in the following Quarter")
     #     print("1: Q1")
     #     print("2: Q2")
     #     print("3: Q3")
     #     print("4: Q4")
-    #
+    
     #     str_choice = input()
-    #
+    
     #     if validate_input(str_choice):
     #         instance.quarter = int(str_choice)
     #         is_valid = True
     #     else:
     #         is_valid = False
     
-    # instance.year_choice = year 
-    # instance.quarter = quarter  
+    instance.year_choice = year 
+    instance.quarter = quarter  
     
-    # instance.print_attr()
-    # instance.create_driver()
-    # tables = ['FLOWS','BALANCE','INCOME']
-
-    # for table in tables:
-    #     result = instance.find_page_link(table)
-    
-    #     if result is None:
-    #         instance.find_page_nolink(table)
-    #         instance.find_table() 
-    #         instance.process_table(table)
-    #     else:
-    #         instance.find_table()
-    #         instance.process_table(table)
-    # instance.quit()
-    
-    instance2.year_choice = year 
-    instance2.quarter = quarter  
-    
-    instance2.print_attr()
-    instance2.create_driver()
+    instance.print_attr()
+    instance.create_driver()
     tables = ['FLOWS','BALANCE','INCOME']
 
     for table in tables:
         result = instance.find_page_link(table)
     
         if result is None:
-            instance2.find_page_nolink(table)
-            # instance.find_table() 
-            # instance.process_table(table)
-        # else:
-        #     instance.find_table()
-        #     instance.process_table(table)
-    instance2.quit()
+            instance.find_page_nolink(table)
+            instance.find_table() 
+            instance.process_table(table)
+        else:
+            instance.find_table()
+            instance.process_table(table)
+    instance.quit()
+    
+    # instance2.year_choice = year 
+    # instance2.quarter = quarter  
+    
+    # instance2.print_attr()
+    # instance2.create_driver()
+    # tables = ['FLOWS','BALANCE','INCOME']
+
+    # for table in tables:
+    #     result = instance.find_page_link(table)
+    
+    #     if result is None:
+    #         instance2.find_page_nolink(table)
+    #         # instance.find_table() 
+    #         # instance.process_table(table)
+    #     # else:
+    #     #     instance.find_table()
+    #     #     instance.process_table(table)
+    # instance2.quit()
 
 if __name__ == '__main__':
     scrape(2020,'Q4')

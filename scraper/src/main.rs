@@ -8,42 +8,23 @@ use logic::*;
 pub mod logic;
 
 fn main() {
-    println!("---------------------------------");
-    println!("-        Finance Scraper        -");
-    println!("---------------------------------");
-
-    println!("---------------------------------");
-
     dotenv().ok();
 
     let args: Vec<String> = env::args().collect();
+    let (year,quarter);
 
-    let (year, quarter) = parse_config(&args).unwrap();
-
-    let current_dir = std::env::var("CURRENT_DIR").unwrap();
-
-    let path = PathBuf::from(format!("{}/output/AAPL/{}/Q{}/",current_dir, &year, &quarter));
-
-    if is_scraped(path) {
-        println!("year/quart has already been scraped");
-        println!("exiting application!");
-        return;
-    }
-    match run((year, quarter)) {
-        Ok(()) => println!("scraping successfull"),
-        Err(e) => panic!("Error scraping: {}", e),
-    }
-
-    let path = PathBuf::from(format!("output/AAPL/{}/Q{}/", year, quarter));
-    if quarter < 4 {
-        match process_quarter(&path) {
-            Ok(()) => println!("csv processed successfull"),
-            Err(e) => panic!("error while processing csv: {}", e),
-        }
+    if is_produciton(){
+        (year, quarter) = parse_config_prod(&args).unwrap();
     } else {
-        match process_yearly(&path) {
-            Ok(()) => println!("csv processed successfull"),
-            Err(e) => panic!("error while processing csv: {}", e),
-        }
+        (year, quarter) = parse_config_dev(&args).unwrap();
     }
+
+
+    let mut display_options = false;
+
+    if year == 0 {
+        display_options = true;
+    }
+
+    run_menu(display_options, (year,quarter));    
 }

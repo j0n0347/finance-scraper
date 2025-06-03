@@ -10,6 +10,8 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 import time
+import os
+from dotenv import load_dotenv
 
 
 
@@ -63,23 +65,23 @@ class BaseDriver():
         self.table: WebElement
         self.year_choice: int
         self.statement = None
-        
-        
+        self.working_dir = os.environ.get('CURRENT_DIR') 
     def print_attr(self):
         print(f"{self.tick}")
         print(f"{self.quarter}")
-        # print(f"{self.page}")
-        # print(f"{self.data}")
-        # print(f"{self.table}")
     
     def create_driver(self):
         options = webdriver.FirefoxOptions()
         
-        # options.add_argument("--headless")
+        options.add_argument("--headless")
         options.add_argument("--no-sandbox")
         options.add_argument("--diable-dev-shm-usage")
 
-        options.binary_location = "/usr/bin/firefox"
+        load_dotenv()
+        
+        WEB_DRIVER_LOCATION = os.getenv('WEB_DRIVER')
+
+        options.binary_location = WEB_DRIVER_LOCATION
 
         self.driver = webdriver.Firefox(options=options)
 

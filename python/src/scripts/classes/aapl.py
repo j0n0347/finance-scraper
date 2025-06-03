@@ -7,10 +7,7 @@ from selenium.webdriver.common.keys import Keys
 from classes.base import BaseDriver
 import os
 import csv
-import time
 import re
-import logging
-
 
 def enquiry(list):
     if len(list) == 0:
@@ -22,20 +19,6 @@ def find_pattern(text: str, pattern: str) -> Optional[str]:
     if match:
         return match.group()
     return None
-
-def validate_input(str_input):
-    is_valid = False
-    try:
-        int_input = int(str_input)
-    except Exception as e:
-        print("Unable to convert type")
-        return
-    if int_input > len(Quarter):
-        print(f"input is higher than available range: {len(Quarter)}")
-    else:
-        is_valid = True
-    return is_valid
-
 
 def remove_patterns(data):
     patterns = [
@@ -53,13 +36,6 @@ def remove_patterns(data):
 
 
 class AaplDriver(BaseDriver):
-    # def __init__(self):
-    #     self.quarter: int
-    #     self.page: WebElement
-    #     self.data: WebElement
-    #     self.table: WebElement
-    #     self.year_choice: int
-    #     self.statement = None
 
     def follow_link(self):
         found = False
@@ -133,10 +109,8 @@ class AaplDriver(BaseDriver):
                     By.XPATH, f"../following::{element}/table")
                 print("found table")
                 return 
-                # print(table.get_attribute("innerHTML"))
             except Exception as e:
                 print(str(e))
-                # raise Exception("cannot find table!")
             try:
                 self.driver.implicitly_wait(3)
                 self.table = self.page.find_element(
@@ -153,15 +127,14 @@ class AaplDriver(BaseDriver):
                 print(str(e))
 
     def process_table(self, table: str):
-        directory_path = f'output/AAPL/{self.year_choice}/Q{self.quarter}/'
+        directory_path = f'{self.working_dir}/output/AAPL/{self.year_choice}/Q{self.quarter}/'
         os.makedirs(directory_path, exist_ok=True);
         rows = self.table.find_elements(By.TAG_NAME, "tr")
-        with open(f"output/AAPL/{self.year_choice}/Q{self.quarter}/{table}.csv", "w", newline='') as csvfile:
+        with open(f"{self.working_dir}/output/AAPL/{self.year_choice}/Q{self.quarter}/{table}.csv", "w", newline='') as csvfile:
             wr = csv.writer(csvfile)
             table_data = []
             for x in range(len(rows)):
                 row = rows[x].find_elements(By.XPATH, ".//td")
-                # print(row[0].get_attribute("innerHTML"))
                 row_data = []
                 for i in range(len(row)):
                     try:
@@ -176,25 +149,15 @@ class AaplDriver(BaseDriver):
                             info = re.sub(r'^\(', '-', info)
                             info = re.sub(r'\)', '', info)
                             info = re.sub(r'\$', '', info)
-                            # print(info)
-                            # time.sleep(2)
                             row_data.append(info)
                             if not bool(info.strip()):
                                 row_data.pop()
-                            # if info == row_data[-2]:
-                            #     print("popping data")
-                            #     row_data.pop()
                     except NoSuchElementException as e:
                         print(e.msg)
                         pass
-                # print(row_data)
                     # remove duplicate data
-                    try:
                         if len(row_data) > 1:
-                            # print(row_data)
                             for i in range(len(row_data)):
-                                # print(row_data[i])
-                                # print(len(row_data))
                                 current_element = row_data[i]
                                 previouse_element = row_data[i - 1]
                                 if current_element == previouse_element:
@@ -202,9 +165,7 @@ class AaplDriver(BaseDriver):
                     except:
                         pass
                 if enquiry(row_data):
-                    # print(row_data)
                     table_data.append(row_data)
-            # print(len(table_data))
             for i in range(len(table_data)):
                 print(table_data[i])
                 wr.writerow(table_data[i])
@@ -212,11 +173,9 @@ class AaplDriver(BaseDriver):
             if not enquiry(table_data):
                 for x in range(len(rows)):
                     row = rows[x].find_elements(By.XPATH, ".//td")
-                    # print(row[0].get_attribute("innerHTML"))
                     row_data = []
                     for i in range(len(row)):
                         try:
-                            # print("we are looking for font")
                             self.driver.implicitly_wait(0.01)
                             row_info = row[i].find_elements(
                                 By.TAG_NAME, "font")
@@ -237,11 +196,9 @@ class AaplDriver(BaseDriver):
                             print(e.msg)
                             pass
                     if enquiry(row_data):
-                        # print(row_data)
                         table_data.append(row_data)
-                # print(len(table_data))
                 for i in range(len(table_data)):
-                    print(table_data[i])
+                    # print(table_data[i])
                     wr.writerow(table_data[i])
 
     def quit(self):
