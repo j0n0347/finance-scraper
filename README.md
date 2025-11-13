@@ -26,9 +26,9 @@ Will need to add further cli options to make program run smoother. Possibly cons
 
 add path location of current working directory and firefox location into the repective variables in .env file
 
-CURRENT_DIR=(working directory)
-APP_ENV=production (leave as production)
-WEB_DRIVER=(location of fireforx driver)
+- CURRENT_DIR=(working directory)
+- APP_ENV=production (leave as production)
+- WEB_DRIVER=(location of fireforx driver)
 
 install python dependencies from requirements.txt
 
