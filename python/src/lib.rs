@@ -1,11 +1,8 @@
 use anyhow::Result;
-use dotenv::from_path;
 use pyo3::prelude::*;
 use pyo3::PyResult;
 use std::env;
-use std::fs;
 use std::path::Path;
-use std::path::PathBuf;
 
 pub fn run((year, quarter): (i32, i32)) -> Result<()> {
     let project_root = Path::new(env!("CARGO_MANIFEST_DIR"))

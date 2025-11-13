@@ -18,7 +18,6 @@ pub fn run_menu(display_options: bool, (year, quarter): (i32, i32)) {
             println!("-     no scraped information       -");
             println!("-re-run application with parameters-");
             println!("-or select automatic scrape options-");
-
             println!("-        Scraping Options          -");
             println!("-1: APPLE DEFAULT SCRAPE           -");
             println!("-2: EXIT APPLICATION               -");
@@ -199,7 +198,7 @@ pub fn parse_config_dev(args: &[String]) -> Result<(i32, i32), std::io::Error> {
 pub fn parse_config_prod(args: &[String]) -> Result<(i32, i32), std::io::Error> {
     println!("argument amount: {}", args.len());
 
-    if args.len() == 0 {
+    if args.len() == 1 {
         return Ok((0, 0));
     }
 

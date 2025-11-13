@@ -1,0 +1,14 @@
+name,current_quarter,previous_quarter
+Net income,24160,25010
+Other comprehensive income/(loss:,,
+"Change in foreign currency translation, net of tax",-95,-21
+"Change in unrealized gains/losses on derivative instruments, net of tax:",,
+Change in fair value of derivative instruments,-13,334
+Adjustment for net (gains/losses realized and included in net income,-191,-301
+Total change in unrealized gains/losses on derivative instruments,-204,33
+"Change in unrealized gains/losses on marketable debt securities, net of tax:",,
+Change in fair value of marketable debt securities,1403,-5633
+Adjustment for net (gains/losses realized and included in net income,62,54
+Total change in unrealized gains/losses on marketable debt securities,1465,-5579
+Total other comprehensive income/(loss,1166,-5567
+Total comprehensive income,25326,19443
