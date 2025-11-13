@@ -5,7 +5,7 @@ This project aims to be a simple web scraping application for which is used to s
 
 **Tech used:** Rust, Python (Selenium library)
 
-![Logo](./chart.PNG)
+![Logo](./assets/chart.PNG)
 
 Project implements both the Rust and Python programming langauge and libraries to scrape financial data 
 from publically listed companies on the american stock exchange. Although currently only able to scrape for Apple,
@@ -38,10 +38,18 @@ you can specify the year and quarter you wish to scrape, if no arguments are spe
 
 scraping each quarter for 2020-2024. ensure your internet speeds is configure adequatley.
 
-## Lessons Learned:
+## Project Reflections:
 
 This was quite a complicated project using many different libraries. A project of this scale and having two langauges in unison is the biggest feat accomplished in this project. While also using an automation library suchas selenium, order to programiatically locate relevant data is a skill in which I will build upon for future projects.
 
 ## Examples:
-Take a look at these couple examples that I have in my own portfolio:
+Cli app produces two csv files for each INCOME/CASH FLOW/BALANCE SHEET statments for the year/quarter:
 
+![Logo](./assets/balance_sheet.png)
+**Balance sheet**
+
+![Logo](./assets/income_statement.png)
+**Income statement**
+
+![Logo](./assets/cash_flow.png)
+**Cash flow statment**
